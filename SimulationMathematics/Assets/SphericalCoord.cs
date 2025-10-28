@@ -6,6 +6,9 @@ public class SphericalCoord : MonoBehaviour
     public TextMeshProUGUI rhoText = null;
     public TextMeshProUGUI phiText = null;
     public TextMeshProUGUI thetaText = null;
+    public TextMeshProUGUI XText = null;
+    public TextMeshProUGUI YText = null;
+    public TextMeshProUGUI ZText = null;
     public GameObject outerSphere = null;
     public GameObject point = null;
     public GameObject pivotPoint = null;
@@ -18,13 +21,13 @@ public class SphericalCoord : MonoBehaviour
     public Transform pivotPhi = null;
     public Transform pivotTheta = null;
 
-    [Min(0f)]
+    [Range(0.0f, 10.0f)]
     public float rho = 0.0f;
 
     [Range(0.0f, Mathf.PI)]
     public float phi = 0.0f;
 
-    [Range(0.0f, 2.0f * Mathf.PI)]
+    [Range(-Mathf.PI, Mathf.PI)]
     public float theta = 0.0f;
 
 
@@ -40,6 +43,9 @@ public class SphericalCoord : MonoBehaviour
         rhoText.text = "Rho = " + rho;
         phiText.text = "Phi = " + phi;
         thetaText.text = "Theta = " + theta;
+        XText.text = "x = " + point.transform.position.x;
+        YText.text = "y = " + point.transform.position.y;
+        ZText.text = "z = " + point.transform.position.z;
 
         outerSphere.transform.localScale = new Vector3(rho * 2f, rho * 2f, rho * 2f);
 
