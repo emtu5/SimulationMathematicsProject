@@ -47,18 +47,18 @@ public class CylinderCoord : MonoBehaviour
     [Range(-10.0f, 10.0f)]
     public float h = 0.0f;
 
-    // https://stackoverflow.com/a/17574805
-
     public float atanMath(float y, float x) {
         float theta = Mathf.Atan2(y, x);
-        if (theta < 0) return Mathf.PI * 2 + theta;
-        return theta;        
+        if (theta > Mathf.PI / 2)
+            theta = (float)2.5 * Mathf.PI - theta;
+        else
+            theta = Mathf.PI / 2 - theta;
+        return theta;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Callback functions every time slider is used
         xSlider.onValueChanged.AddListener(delegate {CartesianToCylinder(); });
         ySlider.onValueChanged.AddListener(delegate {CartesianToCylinder(); });
         zSlider.onValueChanged.AddListener(delegate {CartesianToCylinder(); });
@@ -74,7 +74,6 @@ public class CylinderCoord : MonoBehaviour
             r = Mathf.Sqrt(x * x + y * y);
             theta = atanMath(y, x);
             h = z;
-            // Set without notify or else you cause an infinite loop
             rSlider.SetValueWithoutNotify(r);
             thetaSlider.SetValueWithoutNotify(theta);
             hSlider.SetValueWithoutNotify(h);
@@ -87,7 +86,6 @@ public class CylinderCoord : MonoBehaviour
             x = r * Mathf.Cos(theta);
             y = r * Mathf.Sin(theta);
             z = h;
-            // Set without notify or else you cause an infinite loop
             xSlider.SetValueWithoutNotify(x);
             ySlider.SetValueWithoutNotify(y);
             zSlider.SetValueWithoutNotify(z);
